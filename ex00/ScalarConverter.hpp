@@ -4,6 +4,10 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
+#include <cctype>
+#include <cfloat>
+
 
 class	ScalarConverter
 {

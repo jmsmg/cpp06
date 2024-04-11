@@ -22,13 +22,14 @@ ScalarConverter::~ScalarConverter()
 
 void	ScalarConverter::convert(const std::string &str)
 {
+	char	*upcase;
 	char	*endptr;
 	double	value = strtod(str.c_str(), &endptr);
 
-	if (endptr == str)
+	if ((value == 0.0 && (str[0] != '-' && str[0] != '+' && !std::isdigit(str[0])))
+		|| (*endptr && std::strcmp(endptr, "f")))
 	{
-		std::cout << "conversion is impossible" << std::endl;
-		return ;
+		throw (std::bad_alloc());
 	}
 
 	std::cout << "char: ";
@@ -45,11 +46,28 @@ void	ScalarConverter::convert(const std::string &str)
 		std::cout << "impossible" << std::endl;
 
 	std::cout << "int: ";
-	
-	std::cout << "float: ";
+	if (value < INT_MIN || INT_MAX < value)
+	{
+		std::cout << "impossible" << std::endl;
+	}
+	else
+	{
+		std::cout << static_cast<int>(value) << std::endl;
+	}
 
-	std::cout << "double: ";
+	std::cout << "float: ";
+	// nan inf 등 처리해야함
+	if (value < FLT_MIN || FLT_MAX < value)
+	{
+		std::cout << "impossible" << std::endl;
+	}
+	else
+	{
+		std::cout << static_cast<float>(value) << std::endl;
+	}
+
+	std::cout << "double: " << value << std::endl;
 }
 
 // nan, nanf -inf, +inf, -inff, +inff 처리,
-// 
+//함
