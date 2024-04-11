@@ -31,12 +31,21 @@ void	ScalarConverter::convert(const std::string &str)
 		return ;
 	}
 
-
-
 	std::cout << "char: ";
+	if (0 <= value && value <= 127)
+	{
+		if (32 <= value && value <= 126)
+		{
+			std::cout << '\'' << static_cast<char>(value) << '\'' << std::endl;
+		}
+		else
+			std::cout << "Non displayable" << std::endl;
+	}
+	else
+		std::cout << "impossible" << std::endl;
 
 	std::cout << "int: ";
-
+	
 	std::cout << "float: ";
 
 	std::cout << "double: ";
