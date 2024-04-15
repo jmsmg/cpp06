@@ -1,6 +1,6 @@
 CC = g++
 FLAG = -Wall -Wextra -Werror -std=c++98
-NAME = a.out
+NAME = convert
 OBJS = $(SRCS:.cpp=.o)
 SRCS = main.cpp ScalarConverter.cpp
 

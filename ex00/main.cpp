@@ -1,12 +1,18 @@
 #include "ScalarConverter.hpp"
 
-int	main()
+int	main(int argc, char *argv[])
 {
-	ScalarConverter::convert("42.0f");
-	std::cout << std::endl;
-	ScalarConverter::convert("nan");
-	std::cout << std::endl;
-	ScalarConverter::convert("-inf");
-	std::cout << std::endl;
-	ScalarConverter::convert("2147483648");
+	if (argc == 1)
+	{
+		return (1);
+	}
+
+	try
+	{
+		ScalarConverter::convert(argv[1]);
+	}
+	catch(std::exception &e)
+	{
+		std::cerr << "error" << std::endl;
+	}
 }
