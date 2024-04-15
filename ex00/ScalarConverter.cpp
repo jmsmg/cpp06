@@ -7,12 +7,15 @@ ScalarConverter::ScalarConverter()
 
 ScalarConverter::ScalarConverter(const ScalarConverter &scalar)
 {
+	*this = scalar;
 	std::cout << "copy constructor called" << std::endl;
 }
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &scalar)
 {
+	*this = scalar;
 	std::cout << "copy assignment operator called" << std::endl;
+	return (*this);
 }
 
 ScalarConverter::~ScalarConverter()
@@ -22,12 +25,11 @@ ScalarConverter::~ScalarConverter()
 
 void	ScalarConverter::convert(const std::string &str)
 {
-	char	*upcase;
 	char	*endptr;
 	double	value = strtod(str.c_str(), &endptr);
+	int		value_int = static_cast<int>(value);
 
-	if ((value == 0.0 && (str[0] != '-' && str[0] != '+' && !std::isdigit(str[0])))
-		|| (*endptr && std::strcmp(endptr, "f")))
+	if (str.c_str() == endptr)
 	{
 		throw (std::bad_alloc());
 	}
@@ -46,28 +48,42 @@ void	ScalarConverter::convert(const std::string &str)
 		std::cout << "impossible" << std::endl;
 
 	std::cout << "int: ";
-	if (value < INT_MIN || INT_MAX < value)
+	if (value < INT_MIN || INT_MAX < value || isnan(value) || isinf(value))
 	{
 		std::cout << "impossible" << std::endl;
 	}
 	else
 	{
-		std::cout << static_cast<int>(value) << std::endl;
+		std::cout << value_int << std::endl;
 	}
 
 	std::cout << "float: ";
 	// nan inf 등 처리해야함
-	if (value < FLT_MIN || FLT_MAX < value)
+	if (value_int == value)
+	{
+		std::cout << static_cast<float>(value) << ".0f" << std::endl;
+	}
+	else if (!isinf(value) && !isnan(value) && (value < FLT_MIN || FLT_MAX < value))
 	{
 		std::cout << "impossible" << std::endl;
 	}
 	else
 	{
-		std::cout << static_cast<float>(value) << std::endl;
+		std::cout << static_cast<float>(value) << "f" << std::endl;
 	}
 
-	std::cout << "double: " << value << std::endl;
-}
+	std::cout << "double: ";
+	if (value_int == value)
+	{
+		std::cout << value << ".0" << std::endl;
+	}
+	else if (isinf(value) || isnan(value))
+	{
+		std::cout << value << std::endl;
+	}
+	else
+	{
+		std::cout << value << ".0" << std::endl;
+	}
 
-// nan, nanf -inf, +inf, -inff, +inff 처리,
-//함
+}
