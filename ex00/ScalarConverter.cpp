@@ -31,7 +31,7 @@ void	ScalarConverter::convert(const std::string &str)
 
 	if (str.c_str() == endptr)
 	{
-		throw (std::bad_alloc());
+		throw (std::exception());
 	}
 
 	std::cout << "char: ";
@@ -83,7 +83,7 @@ void	ScalarConverter::convert(const std::string &str)
 	}
 	else
 	{
-		std::cout << value << ".0" << std::endl;
+		std::cout << value << std::endl;
 	}
 
 }
