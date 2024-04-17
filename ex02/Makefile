@@ -2,7 +2,7 @@ CC = g++
 FLAG = -Wall -Wextra -Werror -std=c++98
 NAME = a.out
 OBJS = $(SRCS:.cpp=.o)
-SRCS = main.cpp Bureaucrat.cpp
+SRCS = main.cpp Base.cpp
 
 %.o: %.cpp
 	$(CC) $(FLAG) -o $@ -c $<
